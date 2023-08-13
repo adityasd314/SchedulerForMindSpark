@@ -10,7 +10,7 @@ const EVENTS_DATA = [
     name: "Code Junkie",
     description: "lorem epsum dollar sit amet",
     dates: {
-      "round 1": "10-08-2023",
+      "round 1": "08-15-2023",
     },
     venues: {
       "round 1": [AC101, AC102, AC103, AC104, AC201, AC202],

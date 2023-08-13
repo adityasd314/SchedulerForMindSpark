@@ -131,7 +131,7 @@ const upcomingEvents = EVENTS.filter((event) => {
   if (!isUpcoming) completedEvents.push(event);
   return isUpcoming;
 });
-const Cells = document.querySelectorAll(".grid-item");
+// const Cells = document.querySelectorAll(".grid-item");
 
 const upcoming = Event.groupify(upcomingEvents);
 const completed = Event.groupify(completedEvents);
