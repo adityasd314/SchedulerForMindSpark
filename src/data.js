@@ -4,6 +4,7 @@ const { AC101, AC102, AC103, AC104, AC201, AC202, AC203, AC204, Cognizant } =
 const { BSME1, BSME2, BSME3, HeatTransferLab } =
   VENUES.MechanicalDepartment.buildings;
 
+
 // DateFormat: MM-DD-YYYY
 const EVENTS_DATA = [
   {
