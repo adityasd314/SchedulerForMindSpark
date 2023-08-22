@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"path": "."
+	},
+	{
+		"path": "../../../Downloads/responsive-card-grid-layout"
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "SchedulerForMindSpark"
+  }
+}
