@@ -12,6 +12,14 @@
     display: flex;
     flex-wrap: wrap;
   }
+  .box:hover .content {
+    left: 0px;
+    padding: 60px 40px;
+  }
+  .container .box:hover .content {
+    left: 0px;
+    padding: 60px 40px;
+  }
 }
 
 /*
@@ -77,4 +85,10 @@ body {
   background: url(background.jpg);
   background-size: cover;
   background-attachment: fixed;
+}
+.container .box::before {
+  display: none;
+}
+.container .box::after {
+  display: none;
 }
