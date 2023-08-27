@@ -11,7 +11,7 @@ const createElement = (tagName, object) => {
   }
   return element;
 }
-const createEventCard = (name, descS, dateS, timeS, tags, link, buildings) => {
+const createEventCard = (name, descS, dateS, timeS, tags, link, buildings, round) => {
   const { hour_start, minute_start } = timeS;
 
   const timeString =
@@ -48,7 +48,7 @@ const createEventCard = (name, descS, dateS, timeS, tags, link, buildings) => {
 
   dateTimeContainer.append(date);
   dateTimeContainer.append(time);
-  const title = createElement("h2", { className: "logo righteous tricolor-shadow", innerText: name });
+  const title = createElement("h2", { className: "logo righteous tricolor-shadow", innerText: name + " R" + round });
   const tagContainer = createElement("div", { className: "tag-container" })
   console.log('tags :>> ', tags);
   for (const tag of tags) {
@@ -90,9 +90,9 @@ const displayEvents = (events, grid, deletePrev = false, equal = true) => {
   }
   for (const event of events) {
     console.log(grid_row.childElementCount);
-    const { name, desc, date, time, tags, link, buildings } = event;
+    const { name, desc, date, time, tags, link, buildings, round } = event;
     debugger
-    const eventCard = createEventCard(name, desc, date, time, tags, link, buildings);
+    const eventCard = createEventCard(name, desc, date, time, tags, link, buildings, round);
     grid_row.appendChild(eventCard);
     if (grid_row.childElementCount == 3) {
       grid.appendChild(grid_row);
