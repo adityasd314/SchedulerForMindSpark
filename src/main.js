@@ -1,6 +1,17 @@
 import { upcoming, completed } from "./event.js";
+const createElement = (tagName, object) => {
+  const element = document.createElement(tagName);
 
-const createEventCard = (name, descS, dateS, timeS) => {
+  for (const property in object) {
+    if (Object.hasOwnProperty.call(object, property)) {
+      const value = object[property];
+      element[property] = value;
+
+    }
+  }
+  return element;
+}
+const createEventCard = (name, descS, dateS, timeS, tags) => {
   const { hour_start, minute_start } = timeS;
 
   const timeString =
@@ -18,40 +29,39 @@ const createEventCard = (name, descS, dateS, timeS) => {
   //                 <h5 class="time">${timeString}</h5>
   //             </div>
   //           <h2>${name}</h2>
+  //           <div class="tag-container"><code class="tag">${name}</code></div>
   //           <p>${desc || "lorem ipsum dollar sit amet"}</p>
   //         </article>
   //       </li>`;
-  const gridItem = document.createElement("li");
-  gridItem.className = "grid-item box";
-  const article = document.createElement("article");
-  article.className = "content"
-  const dateTimeContainer = document.createElement("div");
-  dateTimeContainer.className = "date-time-container";
-  const date = document.createElement("p");
-  date.className = "date";
-  date.innerText = dateString;
-  const time = document.createElement("p");
-  time.className = "time";
-  time.innerText = timeString;
+  const gridItem = createElement("li", { className: "grid-item box" });
+  const article = createElement("article", { className: "content" });
+  const dateTimeContainer = createElement("div", { className: "date-time-container" });
+  const date = createElement("p", { className: "date", innerText: dateString });
+
+  const time = createElement("p", { className: "time", innerText: timeString });
+
   dateTimeContainer.append(date);
   dateTimeContainer.append(time);
-  const title = document.createElement("h2");
-  title.className = "logo righteous tricolor-shadow";
-  title.innerText = name;
-
-  const desc = document.createElement("p");
-  desc.innerText = descS || "lorem ipsum dollar sit amet";
+  const title = createElement("h2", { className: "logo righteous tricolor-shadow", innerText: name });
+  const tagContainer = createElement("div", { className: "tag-container" })
+  console.log('tags :>> ', tags);
+  for (const tag of tags) {
+    const tagElement = createElement("code", { className: `tag ${tag}`, innerText: tag });
+    tagContainer.append(tagElement);
+  }
+  const desc = createElement("p", { innerText: descS || "lorem ipsum dollar sit amet" });
 
   article.append(dateTimeContainer);
-article.append(title)
-article.append(desc)
+  article.append(title)
+  article.append(tagContainer);
+  article.append(desc)
   gridItem.append(article);
   return gridItem;
 };
 
-const displayEvents = (events, grid,deletePrev=false, equal = true) => {
+const displayEvents = (events, grid, deletePrev = false, equal = true) => {
   if (deletePrev)
-  grid.innerHTML = `<ul class="grid"></ul>`
+    grid.innerHTML = `<ul class="grid"></ul>`
   let grid_row = grid.lastElementChild;
   if (grid_row.childElementCount == 3) {
     grid_row = document.createElement("ul");
@@ -59,9 +69,9 @@ const displayEvents = (events, grid,deletePrev=false, equal = true) => {
   }
   for (const event of events) {
     console.log(grid_row.childElementCount);
-    const { name, desc, date, time } = event;
+    const { name, desc, date, time, tags } = event;
 
-    const eventCard = createEventCard(name, desc, date, time);
+    const eventCard = createEventCard(name, desc, date, time, tags);
     grid_row.appendChild(eventCard);
     if (grid_row.childElementCount == 3) {
       grid.appendChild(grid_row);
@@ -76,4 +86,4 @@ displayEvents(
   completed[1].filter((e) => !upcoming[0].has(e.name)),
   document.querySelector(".container")
 );
-export {displayEvents, upcoming,completed}
+export { displayEvents, upcoming, completed }

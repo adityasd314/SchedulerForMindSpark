@@ -1,12 +1,14 @@
 import { EVENTS_DATA } from "./data.js";
 
 class Event {
-  constructor(name, desc, buildings, dates, times) {
+  constructor(name, desc, buildings, dates, times, tags) {
     this.name = name;
     this.desc = desc;
     this.venues = buildings;
     this.dates = dates;
     this.times = times;
+    this.tags = tags;
+    console.log('tags :>> ', tags);
   }
   static groupify(e) {
     return e.reduce(
@@ -25,7 +27,7 @@ class Event {
   static objectify(eventsArray) {
     const EVENTS = [];
     for (const event of eventsArray) {
-      const { name, description, dates, venues, timings } = event;
+      const { name, description, dates, venues, timings, tags } = event;
       const datesArray = Object.values(dates).map((date) => new Date(date));
       const timesArray = Object.values(timings);
       const event_object = new Event(
@@ -33,8 +35,10 @@ class Event {
         description,
         venues,
         datesArray,
-        timesArray
+        timesArray,
+        tags// tags
       );
+      console.log('tags :>> ', tags);
       EVENTS.push(event_object);
     }
     return EVENTS;
@@ -44,7 +48,7 @@ class Event {
       .map((event) => {
         return event.dates.map(function (date, i) {
           console.log(event);
-          const { name, desc, buildings, dates, times } = event;
+          const { name, desc, buildings, dates, times, tags } = event;
           const time = event.times[i];
           const building = event.venues[i];
           const sub = new SubEvent(
@@ -55,7 +59,8 @@ class Event {
             times,
             building,
             date,
-            time
+            time,
+            tags
           );
           return sub;
         });
@@ -78,7 +83,7 @@ class Event {
       const hours = timeRem.getUTCHours();
       const minutes = timeRem.getUTCMinutes();
       const seconds = timeRem.getUTCSeconds();
-      return { day, hours, minutes, diff,seconds };
+      return { day, hours, minutes, diff, seconds };
     });
   }
   get rounds() {
@@ -88,11 +93,11 @@ class Event {
   get timeFromNow() {
     return this.timeFrom(new Date(Date.now()));
   }
-  get upcoming() {}
+  get upcoming() { }
 }
 class SubEvent extends Event {
-  constructor(name, desc, buildings, dates, times, venue, date, time) {
-    super(name, desc, buildings, dates, times);
+  constructor(name, desc, buildings, dates, times, venue, date, time, tags) {
+    super(name, desc, buildings, dates, times, tags);
     this.venue = venue;
     this.date = date;
     this.time = time;
@@ -117,12 +122,12 @@ class SubEvent extends Event {
   get round() {
     return this.dates.indexOf(this.date) + 1;
   }
-//   get date(){
-//     return this.dates[this.round]
-//   }
-//   get time(){
-//     return this.times[this.round]
-//   }
+  //   get date(){
+  //     return this.dates[this.round]
+  //   }
+  //   get time(){
+  //     return this.times[this.round]
+  //   }
 }
 const EVENTS = Event.sort(Event.objectify(EVENTS_DATA));
 const completedEvents = [];
@@ -135,7 +140,7 @@ const upcomingEvents = EVENTS.filter((event) => {
 
 const upcoming = Event.groupify(upcomingEvents);
 const completed = Event.groupify(completedEvents);
- 
+
 // console.log({upcomingEvents, completedEvents})
 // console.log(index)
 // console.log(EVENTS)

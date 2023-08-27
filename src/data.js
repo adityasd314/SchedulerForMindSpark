@@ -1,10 +1,17 @@
 import { VENUES } from "./venue.js";
+// import { tagNames } from './event.js';
+const tagNames = {
+  new: "new",
+  upcoming: "upcoming",
+  ongoing: "ongoing",
+  concluded: "concluded"
+}
 const { AC101, AC102, AC103, AC104, AC201, AC202, AC203, AC204, Cognizant } =
   VENUES.AcademicComplex.buildings;
 const { BSME1, BSME2, BSME3, HeatTransferLab } =
   VENUES.MechanicalDepartment.buildings;
 
-
+console.log(tagNames)
 // DateFormat: MM-DD-YYYY
 const EVENTS_DATA = [
   {
@@ -22,6 +29,7 @@ const EVENTS_DATA = [
         hour_end: 1,
       },
     },
+    tags: [tagNames.upcoming, tagNames.new]
   },
   {
     name: "Retracer",
@@ -38,6 +46,8 @@ const EVENTS_DATA = [
         hour_end: 15,
       },
     },
+    tags: [tagNames.concluded, tagNames.new]
+
   },
   {
     name: "Googler",
@@ -60,6 +70,8 @@ const EVENTS_DATA = [
         hour_end: 18,
       },
     },
+    tags: [tagNames.ongoing]
+
   },
   {
     name: "Assemblix",
@@ -88,6 +100,7 @@ const EVENTS_DATA = [
         hour_end: 13,
       },
     },
+    tags: [tagNames.new]
   },
 ];
 export { EVENTS_DATA };
