@@ -44,3 +44,29 @@ code.tag {
 }
 
 /* Styling for the "new" tag */
+a {
+  cursor: pointer;
+}
+.venue {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.department,
+.building {
+  text-align: left;
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.department::before {
+  content: "Department: ";
+  font-weight: bold;
+}
+
+.building::before {
+  content: "Building: ";
+  font-weight: bold;
+}

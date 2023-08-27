@@ -82,7 +82,7 @@ body {
 body {
   width: 100%;
   height: 100%;
-  background: url(background.jpg);
+  background: linear-gradient(#011e1e, #024631);
   background-size: cover;
   background-attachment: fixed;
 }

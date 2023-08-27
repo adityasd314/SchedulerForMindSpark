@@ -11,7 +11,7 @@ const createElement = (tagName, object) => {
   }
   return element;
 }
-const createEventCard = (name, descS, dateS, timeS, tags) => {
+const createEventCard = (name, descS, dateS, timeS, tags, link, buildings) => {
   const { hour_start, minute_start } = timeS;
 
   const timeString =
@@ -30,12 +30,18 @@ const createEventCard = (name, descS, dateS, timeS, tags) => {
   //             </div>
   //           <h2>${name}</h2>
   //           <div class="tag-container"><code class="tag">${name}</code></div>
-  //           <p>${desc || "lorem ipsum dollar sit amet"}</p>
+  //       #    <p>${desc || "lorem ipsum dollar sit amet"}</p>
+  //
+  // <div class="venue">
+  //   <span class="department">Department: XYZ</span>
+  //   <span class="building">AC101</span>
+  // </div>
   //         </article>
   //       </li>`;
   const gridItem = createElement("li", { className: "grid-item box" });
   const article = createElement("article", { className: "content" });
   const dateTimeContainer = createElement("div", { className: "date-time-container" });
+  const url = createElement("a", { className: "event-page-link", innerText: "Go To Event", href: link });
   const date = createElement("p", { className: "date", innerText: dateString });
 
   const time = createElement("p", { className: "time", innerText: timeString });
@@ -49,12 +55,27 @@ const createEventCard = (name, descS, dateS, timeS, tags) => {
     const tagElement = createElement("code", { className: `tag ${tag}`, innerText: tag });
     tagContainer.append(tagElement);
   }
-  const desc = createElement("p", { innerText: descS || "lorem ipsum dollar sit amet" });
-
-  article.append(dateTimeContainer);
+  console.log("motroajs", buildings)
+  const venue = createElement("div", { className: "venue" })
+  const department = createElement("div", { className: "department" },);
+  console.log('buildings :>> ', buildings);
+  const buildingsContainer = createElement("div", { className: "building" })
   article.append(title)
   article.append(tagContainer);
-  article.append(desc)
+  article.append(dateTimeContainer);
+  venue.append(department)
+  venue.append(buildingsContainer)
+  article.append(venue)
+
+  // article.append(buildingsContainer)
+  console.log('buildings :>> ', buildings);
+  buildings.forEach((building, i) => {
+
+    buildingsContainer.innerText += ((i > 0) ? ", " : "") + building.name;
+    // buildingsContainer.innerText += i + 1 ? ", " : "";
+    department.innerText += department.innerText ? "" : building.venue
+  })
+  article.append(url)
   gridItem.append(article);
   return gridItem;
 };
@@ -69,9 +90,9 @@ const displayEvents = (events, grid, deletePrev = false, equal = true) => {
   }
   for (const event of events) {
     console.log(grid_row.childElementCount);
-    const { name, desc, date, time, tags } = event;
-
-    const eventCard = createEventCard(name, desc, date, time, tags);
+    const { name, desc, date, time, tags, link, buildings } = event;
+    debugger
+    const eventCard = createEventCard(name, desc, date, time, tags, link, buildings);
     grid_row.appendChild(eventCard);
     if (grid_row.childElementCount == 3) {
       grid.appendChild(grid_row);

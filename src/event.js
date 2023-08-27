@@ -1,14 +1,15 @@
 import { EVENTS_DATA } from "./data.js";
 
 class Event {
-  constructor(name, desc, buildings, dates, times, tags) {
+  constructor(name, desc, buildings, dates, times, tags, link) {
     this.name = name;
     this.desc = desc;
     this.venues = buildings;
     this.dates = dates;
     this.times = times;
     this.tags = tags;
-    console.log('tags :>> ', tags);
+    this.link = link;
+    //('tags :>> ', tags);
   }
   static groupify(e) {
     return e.reduce(
@@ -27,7 +28,8 @@ class Event {
   static objectify(eventsArray) {
     const EVENTS = [];
     for (const event of eventsArray) {
-      const { name, description, dates, venues, timings, tags } = event;
+      const { name, description, dates, venues, timings, tags, link } = event;
+      console.log('venues :>> ', venues);
       const datesArray = Object.values(dates).map((date) => new Date(date));
       const timesArray = Object.values(timings);
       const event_object = new Event(
@@ -36,9 +38,11 @@ class Event {
         venues,
         datesArray,
         timesArray,
-        tags// tags
+        tags,// tags,
+        link
       );
-      console.log('tags :>> ', tags);
+      console.log('event_object :>> ', event_object);
+      //('tags :>> ', tags);
       EVENTS.push(event_object);
     }
     return EVENTS;
@@ -47,21 +51,24 @@ class Event {
     return events
       .map((event) => {
         return event.dates.map(function (date, i) {
-          console.log(event);
-          const { name, desc, buildings, dates, times, tags } = event;
+          //(event);
+          const { name, desc, venues, dates, times, tags, link } = event;
+          console.log('buildings :>> ',);
           const time = event.times[i];
           const building = event.venues[i];
           const sub = new SubEvent(
             name,
             desc,
-            buildings,
+            venues,
             dates,
             times,
             building,
             date,
             time,
-            tags
+            tags,
+            link
           );
+          console.log('sub :>> ', sub);
           return sub;
         });
       })
@@ -96,9 +103,9 @@ class Event {
   get upcoming() { }
 }
 class SubEvent extends Event {
-  constructor(name, desc, buildings, dates, times, venue, date, time, tags) {
-    super(name, desc, buildings, dates, times, tags);
-    this.venue = venue;
+  constructor(name, desc, buildings, dates, times, venues, date, time, tags, link) {
+    super(name, desc, buildings, dates, times, tags, link);
+
     this.date = date;
     this.time = time;
   }
@@ -119,6 +126,10 @@ class SubEvent extends Event {
   get timeFromNow() {
     return this.timeFrom(new Date(Date.now()));
   }
+  get buildings() {
+
+    return this.venues["round " + this.round];
+  }
   get round() {
     return this.dates.indexOf(this.date) + 1;
   }
@@ -130,6 +141,7 @@ class SubEvent extends Event {
   //   }
 }
 const EVENTS = Event.sort(Event.objectify(EVENTS_DATA));
+console.log('EVENTS :>> ', EVENTS);
 const completedEvents = [];
 const upcomingEvents = EVENTS.filter((event) => {
   const isUpcoming = event.timeFromNow.diff > 0;
@@ -141,7 +153,7 @@ const upcomingEvents = EVENTS.filter((event) => {
 const upcoming = Event.groupify(upcomingEvents);
 const completed = Event.groupify(completedEvents);
 
-// console.log({upcomingEvents, completedEvents})
-// console.log(index)
-// console.log(EVENTS)
+// //({upcomingEvents, completedEvents})
+// //(index)
+// //(EVENTS)
 export { upcoming, completed };
