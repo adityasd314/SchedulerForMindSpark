@@ -29,6 +29,7 @@ body {
   }
   body {
     background: url("bg.jpg");
+    background-attachment: fixed;
   }
 }
 
