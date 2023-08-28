@@ -57,7 +57,7 @@ add("Electrade", ["08-27-2023", "08-28-2023", "08-28-2023"], [
     VENUES.Electrical.buildings['ELEC. 102'],
     VENUES.Electrical.buildings['ELEC. 103']
   ],
-  VENUES.Electrical.buildings['ELEC. ANALOG LAB']
+  [VENUES.Electrical.buildings['ELEC. ANALOG LAB']]
 ], [[14, 15], [10, 11], [16, 18]], [tagNames.upcoming], "keybr.com");
 
 console.log('EVENTS_DATA :>> ', EVENTS_DATA);
