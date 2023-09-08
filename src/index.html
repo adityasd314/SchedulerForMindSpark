@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0">  <title>Scheduler</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0">
+  <title>Scheduler</title>
   <link rel="stylesheet" href="content.css">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="text.css">
   <link rel="stylesheet" href="search.css">
   <link rel="stylesheet" href="tags.css">
+  <link rel="stylesheet" href="gradient.css">
 </head>
+
 <body>
+  <canvas id="gradient-canvas" data-js-darken-top data-transition-in></canvas>
   <div class="search-container">
     <input type="text" id="search" placeholder="Search...">
     <div class="search"></div>
   </div>
   <div class="container">
     <ul class="grid"></ul>
-    
+
   </div>
   <script type="module" src="event.js"></script>
   <script type="module" src="search.js"></script>
   <script type="module" src="main.js"></script>
-  
+  <script type="module" src="gradient.js"></script>
+
 </body>
+
 </html>
