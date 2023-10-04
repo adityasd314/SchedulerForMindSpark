@@ -50,15 +50,12 @@ const createEventCard = (name, descS, dateS, timeS, tags, link, buildings, round
   dateTimeContainer.append(time);
   const title = createElement("h2", { className: "logo righteous tricolor-shadow", innerText: name + " R" + round });
   const tagContainer = createElement("div", { className: "tag-container" })
-  console.log('tags :>> ', tags);
   for (const tag of tags) {
     const tagElement = createElement("code", { className: `tag ${tag}`, innerText: tag });
     tagContainer.append(tagElement);
   }
-  console.log("motroajs", buildings)
   const venue = createElement("div", { className: "venue" })
   const department = createElement("div", { className: "department" },);
-  console.log('buildings :>> ', buildings);
   const buildingsContainer = createElement("div", { className: "building" })
   article.append(title)
   article.append(tagContainer);
@@ -68,7 +65,6 @@ const createEventCard = (name, descS, dateS, timeS, tags, link, buildings, round
   article.append(venue)
 
   // article.append(buildingsContainer)
-  console.log('buildings :>> ', buildings);
   buildings.forEach((building, i) => {
 
     buildingsContainer.innerText += ((i > 0) ? ", " : "") + building.name;
@@ -89,7 +85,6 @@ const displayEvents = (events, grid, deletePrev = false, equal = true) => {
     grid_row.className = "grid" + (equal ? " equal" : "");
   }
   for (const event of events) {
-    console.log(grid_row.childElementCount);
     const { name, desc, date, time, tags, link, buildings, round } = event;
     debugger
     const eventCard = createEventCard(name, desc, date, time, tags, link, buildings, round);
